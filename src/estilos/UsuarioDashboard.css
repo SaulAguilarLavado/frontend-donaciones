@@ -1,0 +1,128 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f7e6d5;
+  font-family: "Georgia", serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #b29473;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Lista de navegación */
+.sidebar .nav {
+  list-style: none; /* quita los puntos */
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .nav-item {
+  margin-bottom: 18px; /* más espacio entre los elementos */
+}
+
+.sidebar .nav-link {
+  color: #2e1e10;
+  font-size: 16px; /* tamaño de letra un poco mayor */
+  padding: 12px 15px;
+  border-radius: 6px;
+  display: block;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-item.active .nav-link {
+  background-color: #f5ebdf;
+  color: #000;
+}
+
+/* Botón de cerrar sesión */
+.btn-logout {
+  background: none;
+  border: none;
+  color: #e26a6a;
+  font-size: 15px;
+  text-align: left;
+  margin-top: 25px;
+  padding-left: 15px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.btn-logout:hover {
+  color: #b03c3c;
+}
+
+/* Main */
+.main-content {
+  flex: 1;
+  background-color: #f9ead9;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background-color: #d7c8a2;
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-icon {
+  font-size: 22px;
+  color: #6d5035;
+}
+
+/* Contenido */
+.content {
+  padding: 30px 50px;
+  overflow-y: auto;
+}
+
+section {
+  margin-bottom: 45px;
+}
+
+section h6 {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  color: #3b2b1a;
+}
+
+/* Cards más grandes y con espaciado */
+.card-container {
+  display: flex;
+  gap: 85px;
+  flex-wrap: wrap;
+}
+
+.card-box {
+  background-color: #d59e7d;
+  width: 200px; /* más grandes */
+  height: 140px; /* más altas */
+  border-radius: 15px;
+  transition: transform 0.2s ease, background-color 0.3s;
+}
+
+.card-box:hover {
+  transform: translateY(-3px);
+  background-color: #c98969;
+}
