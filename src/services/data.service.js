@@ -1,24 +1,22 @@
 import axios from 'axios';
-import authHeader from './auth-header'; // Lo crearemos en el siguiente paso
+import authHeader from './auth-header'; // Este helper también debe existir
 
 const API_URL = 'http://localhost:8080/';
 
-const getFoods = () => {
-    return axios.get(API_URL + 'foods', { headers: authHeader() });
-};
-
+// Función para obtener la lista COMPLETA de albergues
 const getShelters = () => {
     return axios.get(API_URL + 'shelters', { headers: authHeader() });
 };
 
+// Función para obtener la lista COMPLETA de ONGs
 const getNgos = () => {
     return axios.get(API_URL + 'ngos', { headers: authHeader() });
 };
 
 const DataService = {
-    getFoods,
     getShelters,
     getNgos,
 };
 
+// Asegúrate de que estás exportando el objeto correctamente
 export default DataService;
