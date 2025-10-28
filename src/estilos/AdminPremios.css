@@ -1,0 +1,178 @@
+/* Contenedor general */
+.admin-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f8e8d8;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 220px;
+  background-color: #c5a78b;
+  color: #2f1b0d;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.sidebar-title {
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 2.3em;
+}
+
+.sidebar-menu li {
+  cursor: pointer;
+  padding-left: 5px;
+}
+
+.sidebar-menu li:hover {
+  background-color: #e4b896;
+  border-radius: 4px;
+}
+
+.logout {
+  color: #e26a6a;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.main-content-admin {
+  flex-grow: 1;
+  background-color: #fefaf6;
+  padding: 2rem 2.5rem; /* 🔹 Reducido para acercar el contenido al sidebar */
+}
+
+
+/* Header */
+.header-admin {
+  display: flex; /* Coloca los hijos en una misma línea */
+  justify-content: space-between; /* Separa el título y el bloque de admin */
+  align-items: center; /* Centra verticalmente */
+  padding: 10px 20px; /* Espaciado opcional */
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header-title {
+  font-weight: 600;
+  margin-right: 670px;;
+}
+
+.admin-name {
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.admin-user {
+  color: #555;
+}
+
+/* ===== SECCIÓN PREMIOS ===== */
+.premios-section  {
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.premios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.premios-header h5 {
+  margin: 0;
+  margin-left: 100px; 
+
+}
+
+.btn-actualizar {
+  background-color: #d2a679;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  margin-right: 100px;
+}
+
+.btn-actualizar:hover {
+  background-color: #c18e5e;
+}
+
+.premios-card {
+  background-color: #e4b896;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  max-width: 520px;
+}
+
+.cambiar {
+  color: #0047ab;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cambiar:hover {
+  text-decoration: underline;
+}
+
+/* ===== RANKING ===== */
+.ranking-section {
+  margin-top: 50px;
+  
+}
+.ranking-section h5 {
+  margin-top: 50px;
+  margin-left: 100px; 
+}
+
+.ranking-card {
+  background-color: #e4b896;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  max-width: 450px;
+}
+
+.btn-vermas {
+  background-color: #d2a679;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 12px;
+}
+
+.btn-vermas:hover {
+  background-color: #c18e5e;
+}
+
+/* ===== AJUSTES DE CENTRADO Y ESPACIADO ===== */
+
+/* Centrar las tarjetas en pantalla */
+.premios-card,
+.ranking-card {
+  margin: 0 auto; /* centra horizontalmente */
+}
+
+/* Separar visualmente las secciones del contenido superior */
+.premios-section {
+  margin-top: 40px; /* 🔹 más espacio entre el header y esta sección */
+}
+
+.ranking-section {
+  margin-top: 50px; /* 🔹 un poco más de separación debajo */
+}

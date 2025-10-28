@@ -10,7 +10,7 @@ export default function AdminDashboard() {
       <aside className="sidebar-admin">
         <ul className="nav flex-column">
           <li className="nav-item">
-            <Link to="/dashboard-admin" className="nav-link active">
+            <Link to="/admin" className="nav-link active">
               Dashboard
             </Link>
           </li>
