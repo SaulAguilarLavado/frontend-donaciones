@@ -1,29 +1,50 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UsuarioDashboard from "./components/UsuarioDashboard";
-import Perfil from "./components/Perfil";
-import DashboardAdmin from "./components/AdminDashboard";
-import  Alimentos  from "./components/Alimentos";
-import { Albergues } from "./components/Albergues";
-import  {ONGs}  from "./components/ONGs";
-import AdminPremios from "./components/AdminPremios";
-import AdminHistorialClientes from "./components/AdminHistorialClientes";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Componentes de protección
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
+
+// Páginas de la aplicación
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import DashboardPage from "./pages/DashboardPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AlimentosPage from "./pages/AlimentosPage";
+import AlberguesPage from "./pages/AlberguesPage";
+import ONGsPage from "./pages/ONGsPage";
+import PerfilPage from "./pages/PerfilPage";
+import FormularioPage from "./pages/FormularioPage";
+import EstadoPedidoPage from "./pages/EstadoPedidoPage";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<UsuarioDashboard />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/alimentos" element={<Alimentos />} />
-        <Route path="/albergues" element={<Albergues />} />
-        <Route path="/ongs" element={<ONGs />} />
-        <Route path="/admin" element={<DashboardAdmin />} />
-        <Route path="/premios" element={<AdminPremios />} />
-        <Route path="/clientes" element={<AdminHistorialClientes />} />
+        {/* --- RUTAS PÚBLICAS --- */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        
+        {/* --- RUTAS PROTEGIDAS PARA USUARIOS --- */}
+        <Route path="/dashboard" element={ <ProtectedRoute> <DashboardPage /> </ProtectedRoute> } />
+        <Route path="/perfil" element={ <ProtectedRoute> <PerfilPage /> </ProtectedRoute> } />
+        <Route path="/alimentos" element={ <ProtectedRoute> <AlimentosPage /> </ProtectedRoute> } />
+        <Route path="/albergues" element={ <ProtectedRoute> <AlberguesPage /> </ProtectedRoute> } />
+        <Route path="/ongs" element={ <ProtectedRoute> <ONGsPage /> </ProtectedRoute> } />
+        
+        {/* --- ¡NUEVAS RUTAS PROTEGIDAS! --- */}
+        <Route path="/formulario" element={ <ProtectedRoute> <FormularioPage /> </ProtectedRoute> } />
+        <Route path="/pedido" element={ <ProtectedRoute> <EstadoPedidoPage /> </ProtectedRoute> } />
+
+        {/* --- RUTA PROTEGIDA PARA ADMIN --- */}
+        <Route path="/admin-dashboard" element={ <AdminProtectedRoute> <AdminDashboardPage /> </AdminProtectedRoute> } />
+        
+        {/* --- RUTA FALLBACK --- */}
+        <Route path="*" element={<HomePage />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
