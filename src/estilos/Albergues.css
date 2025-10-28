@@ -1,0 +1,50 @@
+/* Archivo: Albergues.css */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px; /* espacio entre tarjetas */
+  justify-content: flex-start;
+}
+
+.card-box.albergue {
+  background-color: #d59e7d;
+  width: 280px;       /* ancho más grande */
+  min-height: 350px;  /* altura suficiente para mostrar todo */
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+.card-box.albergue:hover {
+  transform: translateY(-5px);
+  background-color: #c98969;
+}
+
+.card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.card-box h6 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.card-box p {
+  font-size: 14px;
+  margin: 3px 0;
+  text-align: center;
+}
+
+.card-box p strong {
+  font-weight: bold;
+}

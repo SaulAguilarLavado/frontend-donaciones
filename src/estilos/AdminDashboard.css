@@ -1,0 +1,146 @@
+/* ====== Estructura general ====== */
+.dashboard-admin-container {
+  background-color: #f7e6d5;;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ====== Sidebar Admin ====== */
+.sidebar-admin {
+  width: 220px;
+  background-color: #b29473;
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.15);
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* Lista de navegación */
+.sidebar-admin .nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-admin .nav-item {
+  margin-bottom: 18px;
+}
+
+.sidebar-admin .nav-link {
+  color: #2e1e10;
+  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar-admin .nav-link:hover,
+.sidebar-admin .nav-item.active .nav-link {
+  background-color: #f5ebdf;
+  color: #000;
+  transform: translateX(4px);
+}
+
+
+/* Línea divisoria visual */
+.sidebar-admin .divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 25px 0;
+}
+
+/* Botón de cerrar sesión */
+.sidebar-admin .btn-logout {
+  border: none;
+  background: none;
+  color: #e26a6a;
+  font-weight: 600;
+  text-align: left;
+  padding: 14px 18px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sidebar-admin .btn-logout:hover {
+  background-color: #f8e4dc;
+  color: #b03c3c;
+  transform: translateX(4px);
+}
+
+
+/* ====== Main Content ====== */
+.main-admin-content {
+  background-color: #faefe4;
+  flex-grow: 1;
+  padding: 25px;
+}
+
+/* ====== Header ====== */
+.header-admin {
+  background-color: #b7a278;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: #3e2d22;
+}
+
+/* ====== Tarjetas ====== */
+.resumen-card {
+  background-color: #d7a98c;
+  border: none;
+  border-radius: 12px;
+  color: #3e2d22;
+}
+
+/* ====== Gráfico (placeholder) ====== */
+.grafico-circulo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 10px solid #bbb;
+  border-top-color: #3b3b8f;
+  position: relative;
+  animation: spin 4s linear infinite;
+}
+
+.porcentaje {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: #3b3b8f;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ====== Últimas donaciones ====== */
+.ultima-card {
+  background-color: #d7a98c;
+  border: none;
+  border-radius: 10px;
+  color: #3e2d22;
+}
+
+/* ====== Responsivo ====== */
+@media (max-width: 992px) {
+  .sidebar-admin {
+    display: none;
+  }
+  .main-admin-content {
+    padding: 15px;
+  }
+}
