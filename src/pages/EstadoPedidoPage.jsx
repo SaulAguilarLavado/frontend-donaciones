@@ -11,22 +11,29 @@ const EstadoPedidoPage = () => {
   const API_URL = "http://localhost:8080/donations/my";
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // token JWT
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user?.accessToken; // 👈 Extrae el token del objeto guardado
 
-    axios
-      .get(API_URL, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setOrders(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error al cargar pedidos:", err);
-        setError("No se pudo cargar tu historial de donaciones.");
-        setLoading(false);
-      });
-  }, []);
+  if (!token) {
+    setError("No se encontró el token. Inicia sesión nuevamente.");
+    setLoading(false);
+    return;
+  }
+
+  axios
+    .get(API_URL, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      setOrders(response.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error al cargar pedidos:", err);
+      setError("No se pudo cargar tu historial de donaciones.");
+      setLoading(false);
+    });
+}, []);
 
   return (
     <UserLayout pageTitle="Historial de Donaciones">
