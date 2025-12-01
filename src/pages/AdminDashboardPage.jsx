@@ -26,8 +26,8 @@ const AdminDashboardPage = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/donativos" className="nav-link">
-              Historial de Donativos
+            <Link to="/admin-donaciones" className="nav-link">
+              Gestionar Donaciones
             </Link>
           </li>
           <li className="nav-item">
@@ -41,8 +41,9 @@ const AdminDashboardPage = () => {
             </Link>
           </li>
         </ul>
-        {/* Hacemos que el botón llame a la función handleLogout */}
-        <button onClick={handleLogout} className="btn-logout">Cerrar Sesión</button>
+        <button onClick={handleLogout} className="btn-logout">
+          Cerrar Sesión
+        </button>
       </aside>
 
       {/* Main content */}
@@ -61,19 +62,31 @@ const AdminDashboardPage = () => {
           <div className="row g-4">
             <div className="col-md-4">
               <div className="card resumen-card text-center p-3">
-                <h6>Donaciones<br />(Este mes)</h6>
+                <h6>
+                  Donaciones
+                  <br />
+                  (Este mes)
+                </h6>
                 <p className="fw-bold">xxxxx</p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="card resumen-card text-center p-3">
-                <h6>Kilos Rescatados<br />(Este mes)</h6>
+                <h6>
+                  Kilos Rescatados
+                  <br />
+                  (Este mes)
+                </h6>
                 <p className="fw-bold">xxxxx</p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="card resumen-card text-center p-3">
-                <h6>Nuevos Usuarios<br />(Este mes)</h6>
+                <h6>
+                  Nuevos Usuarios
+                  <br />
+                  (Este mes)
+                </h6>
                 <p className="fw-bold">xxxxx</p>
               </div>
             </div>
@@ -109,6 +122,6 @@ const AdminDashboardPage = () => {
       </main>
     </div>
   );
-}
+};
 
 export default AdminDashboardPage;
