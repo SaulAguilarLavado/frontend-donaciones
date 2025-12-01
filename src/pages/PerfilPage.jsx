@@ -1,111 +1,134 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import PuntosService from "../services/puntos.service";
 import "../estilos/Perfil.css";
 
 export default function Perfil() {
+
+  const [puntos, setPuntos] = useState([]);
+  const [ranking, setRanking] = useState([]);
+  const [totalPuntos, setTotalPuntos] = useState(0);
+  const [miPosicion, setMiPosicion] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // =======================
+  // CARGAR MIS PUNTOS
+  // =======================
+  useEffect(() => {
+    PuntosService.getMisPuntos().then(response => {
+      setPuntos(response.data);
+
+      // Total de puntos del usuario
+      const sum = response.data.reduce((acc, p) => acc + p.points, 0);
+      setTotalPuntos(sum);
+    });
+  }, []);
+
+  // =======================
+  // CARGAR RANKING REAL
+  // =======================
+  useEffect(() => {
+    PuntosService.getRanking().then(response => {
+      const lista = response.data;
+
+      // Agrupar por usuario
+      const acumulado = {};
+
+      lista.forEach(p => {
+        if (!acumulado[p.userId]) acumulado[p.userId] = 0;
+        acumulado[p.userId] += p.points;
+      });
+
+      // Convertir en array ordenado
+      const rankingFinal = Object.entries(acumulado)
+        .map(([userId, puntos]) => ({ userId, puntos }))
+        .sort((a, b) => b.puntos - a.puntos);
+
+      setRanking(rankingFinal);
+
+      // Encontrar mi posición
+      const pos = rankingFinal.findIndex(r => r.userId == user.userId) + 1;
+      setMiPosicion(pos);
+    });
+  }, []);
+
   return (
     <div className="perfil-container d-flex">
-      {/* Sidebar */}
+
+      {/* SIDEBAR */}
       <aside className="sidebar">
         <ul className="nav flex-column">
-          <li className="nav-item">
-            <Link to="/perfil" className="nav-link active">Perfil</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/" className="nav-link">Dashboard</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/alimentos" className="nav-link">Alimentos</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/albergues" className="nav-link">Albergues</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/ongs" className="nav-link">ONGs</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/formulario" className="nav-link">Formulario</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/pedido" className="nav-link">Estado de Pedido</Link>
-          </li>
+          <li><Link to="/perfil" className="nav-link active">Perfil</Link></li>
+          <li><Link to="/dashboard" className="nav-link">Dashboard</Link></li>
+          <li><Link to="/alimentos" className="nav-link">Alimentos</Link></li>
+          <li><Link to="/albergues" className="nav-link">Albergues</Link></li>
+          <li><Link to="/ongs" className="nav-link">ONGs</Link></li>
+          <li><Link to="/formulario" className="nav-link">Formulario</Link></li>
+          <li><Link to="/pedido" className="nav-link">Estado de Pedido</Link></li>
         </ul>
         <button className="btn-logout">Cerrar Sesión</button>
       </aside>
 
-      {/* Main content */}
+      {/* MAIN */}
       <main className="main-content flex-grow-1">
-        {/* Header */}
+
+        {/* HEADER */}
         <header className="header d-flex justify-content-between align-items-center">
           <h5 className="fw-bold m-0">Mi Perfil</h5>
           <div className="user-info d-flex align-items-center gap-2">
-            <span>xxxxxxxxxxxxx</span>
+            <span>{user.email}</span>
             <i className="bi bi-person-circle user-icon fs-4"></i>
           </div>
         </header>
 
-        {/* Datos personales */}
+        {/* MIS DATOS */}
         <section className="perfil-section mt-4">
           <div className="card datos-card p-4">
             <h6 className="fw-bold mb-3">Mis Datos</h6>
-            <div className="row g-3">
-              <div className="col-md-6">
-                <p><strong>Nombre:</strong> xxxxxxxxxxxxxxxxx</p>
-              </div>
-              <div className="col-md-6">
-                <p><strong>Fecha de Nacimiento:</strong> xx/xx/xxxx</p>
-              </div>
-              <div className="col-md-6">
-                <p><strong>Correo Electrónico (no editable):</strong><br />xxxxxxxxxxxx@xxx.com</p>
-              </div>
-              <div className="col-md-6">
-                <p><strong>Número de Celular:</strong> +51 xxx-xxx-xxx</p>
-              </div>
-            </div>
+
+            <p><strong>Total de Puntos Acumulados:</strong> {totalPuntos} pts</p>
+            <hr />
+
+            <h6 className="fw-bold">Historial de Puntos</h6>
+            {puntos.length === 0 ? (
+              <p>Aún no tienes puntos.</p>
+            ) : (
+              <ul>
+                {puntos.map((p, i) => (
+                  <li key={i}>
+                    <strong>+{p.points} pts</strong> — {p.reason}  
+                    <br />
+                    <small className="text-muted">
+                      {new Date(p.dateAssigned).toLocaleString()}
+                    </small>
+                    <hr />
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </section>
 
-        {/* Ranking de donantes */}
+        {/* RANKING */}
         <section className="ranking-section mt-4">
-          <h6 className="fw-bold mb-3">Rankings de Donantes</h6>
-          <p className="text-muted small">¡Los 3 primeros puestos ganan premios este mes!</p>
+          <h6 className="fw-bold">Ranking Global de Donadores</h6>
+          <p className="text-muted small">Competencia mensual</p>
 
-          {/* Premios */}
-          <div className="premios d-flex flex-wrap justify-content-around gap-3 mt-3">
-            <div className="premio-card text-center">
-              <span className="medalla oro">🥇</span>
-              <h6 className="fw-bold mt-2">PUESTO 1</h6>
-              <p>2 Entradas 3D para Cineplanet + Combo</p>
-            </div>
-            <div className="premio-card text-center">
-              <span className="medalla plata">🥈</span>
-              <h6 className="fw-bold mt-2">PUESTO 2</h6>
-              <p>Vale de S/50 en Bembos</p>
-            </div>
-            <div className="premio-card text-center">
-              <span className="medalla bronce">🥉</span>
-              <h6 className="fw-bold mt-2">PUESTO 3</h6>
-              <p>1 Café + Postre en Starbucks</p>
-            </div>
-          </div>
+          <ul className="lista-ranking">
+            {ranking.map((r, i) => (
+              <li key={i}>
+                <strong>{i + 1}.</strong> Usuario #{r.userId} — {r.puntos} pts
+              </li>
+            ))}
+          </ul>
 
-          {/* Tabla de ranking */}
-          <div className="ranking-list mt-4 p-3 rounded shadow-sm">
-            <ol className="mb-0">
-              <li>Laura Quispe – 5,200 Puntos</li>
-              <li>Mateo Rojas – 4,850 Puntos</li>
-              <li>Camila Flores – 4,700 Puntos</li>
-              <li>Javier Mendoza – 4,550 Puntos</li>
-              <li>Sofía Castillo – 4,400 Puntos</li>
-            </ol>
-            <a href="#" className="ver-mas">Ver más</a>
-            <div className="mi-ranking mt-3">
-              <p><strong>28. Tú</strong> – 2,100 Puntos</p>
-              <p className="text-muted small">¡Te faltan 150 puntos para subir de puesto!</p>
+          {miPosicion && (
+            <div className="mt-3 mi-ranking">
+              <p><strong>Tu posición actual:</strong> #{miPosicion}</p>
             </div>
-          </div>
+          )}
         </section>
+
       </main>
     </div>
   );

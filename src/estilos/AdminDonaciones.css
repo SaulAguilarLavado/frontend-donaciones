@@ -1,0 +1,75 @@
+/* Tabla general */
+.table {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+/* Encabezados */
+.table thead th {
+  background-color: #e9d8c7; /* tono beige suave parecido al tuyo */
+  color: #333;
+  font-weight: bold;
+}
+
+/* Filas */
+.table tbody tr:hover {
+  background-color: #f6efe8; /* hover suave */
+}
+
+/* Badges por estado */
+.badge {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  color: white;
+}
+
+/* PENDIENTE */
+.badge.bg-pendiente {
+  background-color: #777;
+}
+
+/* COMPLETADA */
+.badge.bg-completada {
+  background-color: #2e8b57; /* verde suave */
+}
+
+/* CANCELADA */
+.badge.bg-cancelada {
+  background-color: #c0392b; /* rojo suave */
+}
+
+/* EN CAMINO */
+.badge.bg-en_camino {
+  background-color: #1e88e5; /* azul calmado */
+}
+
+/* Botones */
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.btn-success {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.btn-success:hover,
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* Contenedor principal */
+.container {
+  background: #f9ede2; /* Igual al fondo general de tus pantallas */
+  padding: 20px;
+  border-radius: 8px;
+}

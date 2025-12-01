@@ -17,6 +17,7 @@ import ONGsPage from "./pages/ONGsPage";
 import PerfilPage from "./pages/PerfilPage";
 import FormularioPage from "./pages/FormularioPage";
 import EstadoPedidoPage from "./pages/EstadoPedidoPage";
+import AdminDonacionesPage from "./pages/AdminDonacionesPage";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
 
         {/* --- RUTA PROTEGIDA PARA ADMIN --- */}
         <Route path="/admin-dashboard" element={ <AdminProtectedRoute> <AdminDashboardPage /> </AdminProtectedRoute> } />
+        <Route path="/admin-donaciones" element={ <AdminProtectedRoute> <AdminDonacionesPage /> </AdminProtectedRoute> } />
         
         {/* --- RUTA FALLBACK --- */}
         <Route path="*" element={<HomePage />} />
