@@ -1,23 +1,37 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import AuthService from '../services/auth.service';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import AuthService from "../services/auth.service";
 
 const AdminProtectedRoute = ({ children }) => {
-    const currentUser = AuthService.getCurrentUser();
+  const currentUser = AuthService.getCurrentUser();
 
-    if (!currentUser) {
-        return <Navigate to="/login" />;
+  // Si no hay usuario → obligatorio login
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
+
+  let roles = [];
+
+  try {
+    // Intentar leer roles desde localStorage (si los guardaste allí)
+    if (currentUser.roles) {
+      roles = currentUser.roles;
+    } else {
+      // Decodificar roles desde el token
+      const payload = JSON.parse(atob(currentUser.accessToken.split(".")[1]));
+      roles = payload.roles || [];
     }
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return <Navigate to="/login" />;
+  }
 
-    // Decodificamos el token para ver los roles
-    const roles = JSON.parse(atob(currentUser.accessToken.split('.')[1])).roles;
+  // Validación de rol admin
+  if (!roles.includes("ROLE_ADMIN")) {
+    return <Navigate to="/dashboard" />;
+  }
 
-    // Si no incluye el rol de ADMIN, lo mandamos al dashboard de usuario
-    if (!roles.includes('ROLE_ADMIN')) {
-        return <Navigate to="/dashboard" />;
-    }
-
-    return children;
+  return children;
 };
 
 export default AdminProtectedRoute;

@@ -15,7 +15,16 @@ const login = (email, password) => {
     .post(API_URL + "login", { email, password })
     .then((response) => {
       if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        const token = response.data.accessToken;
+        const payload = JSON.parse(atob(token.split(".")[1]));
+
+        const userData = {
+          accessToken: token,
+          email: payload.sub,
+          roles: payload.roles || []
+        };
+
+        localStorage.setItem("user", JSON.stringify(userData));
       }
       return response.data;
     });
