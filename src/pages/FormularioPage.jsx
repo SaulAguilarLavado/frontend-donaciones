@@ -40,7 +40,8 @@ const FormularioPage = () => {
         beneficiaryId: null,
         beneficiaryType: null,
         beneficiaryName: '', // Para mostrar en el resumen
-        isConsumable: false
+        isConsumable: false,
+         identificacion: 'INDEPENDIENTE'
     });
 
     const [organizations, setOrganizations] = useState([]);
@@ -180,6 +181,21 @@ const FormularioPage = () => {
                             <label htmlFor="contactPhone" className="form-label">Teléfono de Contacto (para coordinar)</label>
                             <input type="tel" className="form-control" id="contactPhone" name="contactPhone" value={formData.contactPhone} onChange={handleChange} required />
                         </div>
+
+                         <div className="mb-3">
+                <label className="form-label">¿Qué tipo de donante eres?</label>
+                <select
+                    className="form-select"
+                    name="identificacion"
+                    value={formData.identificacion}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="INDEPENDIENTE">Usuario Independiente</option>
+                    <option value="PANADERIA">Panadería</option>
+                    <option value="RESTAURANTE">Restaurante</option>
+                </select>
+            </div>
                         <div className="d-flex justify-content-between mt-4">
                             <button type="button" onClick={handleBack} className="btn btn-secondary">← Volver</button>
                             <button type="button" onClick={handleNext} className="btn btn-primary">Siguiente →</button>

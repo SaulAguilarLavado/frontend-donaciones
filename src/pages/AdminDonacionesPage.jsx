@@ -41,32 +41,17 @@ export default function AdminDonacionesPage() {
       {/* SIDEBAR */}
       <aside className="sidebar-admin">
         <ul className="nav flex-column">
-
           <li className="nav-item">
             <Link to="/admin-dashboard" className="nav-link">
               Dashboard
             </Link>
           </li>
-
           <li className="nav-item">
             <Link to="/admin-donaciones" className="nav-link active">
               Gestionar Donaciones
             </Link>
           </li>
-
-          <li className="nav-item">
-            <Link to="/clientes" className="nav-link">
-              Historial Clientes
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link to="/premios" className="nav-link">
-              Premios
-            </Link>
-          </li>
         </ul>
-
         <button onClick={handleLogout} className="btn-logout">
           Cerrar Sesión
         </button>
@@ -89,52 +74,62 @@ export default function AdminDonacionesPage() {
 
           <table className="table table-striped table-bordered">
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>Alimento</th>
-                <th>Cantidad</th>
-                <th>Fecha / Hora</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {donaciones.map(d => (
-                <tr key={d.id}>
-                  <td>{d.id}</td>
-                  <td>{d.foodCategory}</td>
-                  <td>{d.approximateQuantity + " " + d.unit}</td>
-                  <td>{d.pickupDate} {d.pickupTime}</td>
-
-                  <td>
-                    <span className={`badge bg-${d.status.toLowerCase()}`}>
-                      {d.status}
-                    </span>
-                  </td>
-
-                  <td>
-                    {d.status !== "COMPLETADA" && (
-                      <button
-                        className="btn btn-success btn-sm me-2"
-                        onClick={() => cambiarEstado(d.id, "COMPLETADA")}
-                      >
-                        Completar
-                      </button>
-                    )}
-
-                    {d.status !== "CANCELADA" && (
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => cambiarEstado(d.id, "CANCELADA")}
-                      >
-                        Cancelar
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+  <tr>
+    <th>ID</th>
+    <th>Alimento</th>
+    <th>Descripcion</th>
+    <th>Direccion Recojo</th>
+    <th>Telefono</th>
+    <th>Cantidad</th>
+    <th>Tipo Beneficiario</th>
+    <th>Beneficiario</th>
+    <th>Donante</th>
+    <th>Identificación</th> 
+    <th>Fecha / Hora</th>
+    <th>Estado</th>
+    <th>Acciones</th>
+  </tr>
+</thead>
+<tbody>
+  {donaciones.map(d => (
+    <tr key={d.id}>
+      <td>{d.id}</td>
+      <td>{d.foodCategory}</td>
+      <td>{d.description}</td>
+      <td>{d.pickupAddress}</td>
+      <td>{d.contactPhone}</td>
+      <td>{d.approximateQuantity + " " + d.unit}</td>
+      <td>{d.beneficiaryType}</td>
+      <td>{d.beneficiaryName || "-"}</td>
+      <td>{d.donorName || "-"}</td>
+      <td>{d.identificationType || "-"}</td>
+      <td>{d.pickupDate} {d.pickupTime}</td>
+      <td>
+        <span className={`badge bg-${d.status.toLowerCase()}`}>
+          {d.status}
+        </span>
+      </td>
+      <td>
+        {d.status !== "COMPLETADA" && (
+          <button
+            className="btn btn-success btn-sm me-2"
+            onClick={() => cambiarEstado(d.id, "COMPLETADA")}
+          >
+            Completar
+          </button>
+        )}
+        {d.status !== "CANCELADA" && (
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => cambiarEstado(d.id, "CANCELADA")}
+          >
+            Cancelar
+          </button>
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
 
           </table>
 
