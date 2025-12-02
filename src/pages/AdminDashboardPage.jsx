@@ -30,16 +30,7 @@ const AdminDashboardPage = () => {
               Gestionar Donaciones
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/clientes" className="nav-link">
-              Historial Clientes
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/premios" className="nav-link">
-              Premios
-            </Link>
-          </li>
+          
         </ul>
         <button onClick={handleLogout} className="btn-logout">
           Cerrar Sesión
