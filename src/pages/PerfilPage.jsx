@@ -4,7 +4,6 @@ import PuntosService from "../services/puntos.service";
 import "../estilos/Perfil.css";
 
 export default function Perfil() {
-
   const [puntos, setPuntos] = useState([]);
   const [ranking, setRanking] = useState([]);
   const [totalPuntos, setTotalPuntos] = useState(0);
@@ -15,7 +14,7 @@ export default function Perfil() {
   // CARGAR MIS PUNTOS
   // =======================
   useEffect(() => {
-    PuntosService.getMisPuntos().then(response => {
+    PuntosService.getMisPuntos().then((response) => {
       setPuntos(response.data);
 
       // Total de puntos del usuario
@@ -28,50 +27,73 @@ export default function Perfil() {
   // CARGAR RANKING REAL
   // =======================
   useEffect(() => {
-    PuntosService.getRanking().then(response => {
+    PuntosService.getRanking().then((response) => {
       const lista = response.data;
 
-      // Agrupar por usuario
-      const acumulado = {};
+      // Backend ya devuelve datos agrupados:
+      // { nombreUsuario: "...", puntosTotales: 10 }
 
-      lista.forEach(p => {
-        if (!acumulado[p.userId]) acumulado[p.userId] = 0;
-        acumulado[p.userId] += p.points;
-      });
-
-      // Convertir en array ordenado
-      const rankingFinal = Object.entries(acumulado)
-        .map(([userId, puntos]) => ({ userId, puntos }))
-        .sort((a, b) => b.puntos - a.puntos);
+      const rankingFinal = lista.map((r, index) => ({
+        nombre: r.nombreUsuario,
+        puntos: r.puntosTotales,
+        posicion: index + 1,
+      }));
 
       setRanking(rankingFinal);
 
-      // Encontrar mi posición
-      const pos = rankingFinal.findIndex(r => r.userId == user.userId) + 1;
+      // Buscar mi posición
+      const pos =
+        rankingFinal.find((r) => r.nombre === user.nombre)?.posicion || null;
       setMiPosicion(pos);
     });
   }, []);
 
   return (
     <div className="perfil-container d-flex">
-
       {/* SIDEBAR */}
       <aside className="sidebar">
         <ul className="nav flex-column">
-          <li><Link to="/perfil" className="nav-link active">Perfil</Link></li>
-          <li><Link to="/dashboard" className="nav-link">Dashboard</Link></li>
-          <li><Link to="/alimentos" className="nav-link">Alimentos</Link></li>
-          <li><Link to="/albergues" className="nav-link">Albergues</Link></li>
-          <li><Link to="/ongs" className="nav-link">ONGs</Link></li>
-          <li><Link to="/formulario" className="nav-link">Formulario</Link></li>
-          <li><Link to="/pedido" className="nav-link">Estado de Pedido</Link></li>
+          <li>
+            <Link to="/perfil" className="nav-link active">
+              Perfil
+            </Link>
+          </li>
+          <li>
+            <Link to="/dashboard" className="nav-link">
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to="/alimentos" className="nav-link">
+              Alimentos
+            </Link>
+          </li>
+          <li>
+            <Link to="/albergues" className="nav-link">
+              Albergues
+            </Link>
+          </li>
+          <li>
+            <Link to="/ongs" className="nav-link">
+              ONGs
+            </Link>
+          </li>
+          <li>
+            <Link to="/formulario" className="nav-link">
+              Formulario
+            </Link>
+          </li>
+          <li>
+            <Link to="/pedido" className="nav-link">
+              Estado de Pedido
+            </Link>
+          </li>
         </ul>
         <button className="btn-logout">Cerrar Sesión</button>
       </aside>
 
       {/* MAIN */}
       <main className="main-content flex-grow-1">
-
         {/* HEADER */}
         <header className="header d-flex justify-content-between align-items-center">
           <h5 className="fw-bold m-0">Mi Perfil</h5>
@@ -86,7 +108,9 @@ export default function Perfil() {
           <div className="card datos-card p-4">
             <h6 className="fw-bold mb-3">Mis Datos</h6>
 
-            <p><strong>Total de Puntos Acumulados:</strong> {totalPuntos} pts</p>
+            <p>
+              <strong>Total de Puntos Acumulados:</strong> {totalPuntos} pts
+            </p>
             <hr />
 
             <h6 className="fw-bold">Historial de Puntos</h6>
@@ -96,7 +120,7 @@ export default function Perfil() {
               <ul>
                 {puntos.map((p, i) => (
                   <li key={i}>
-                    <strong>+{p.points} pts</strong> — {p.reason}  
+                    <strong>+{p.points} pts</strong> — {p.reason}
                     <br />
                     <small className="text-muted">
                       {new Date(p.dateAssigned).toLocaleString()}
@@ -117,18 +141,19 @@ export default function Perfil() {
           <ul className="lista-ranking">
             {ranking.map((r, i) => (
               <li key={i}>
-                <strong>{i + 1}.</strong> Usuario #{r.userId} — {r.puntos} pts
+                <strong>{r.posicion}.</strong> {r.nombre} — {r.puntos} pts
               </li>
             ))}
           </ul>
 
           {miPosicion && (
             <div className="mt-3 mi-ranking">
-              <p><strong>Tu posición actual:</strong> #{miPosicion}</p>
+              <p>
+                <strong>Tu posición actual:</strong> #{miPosicion}
+              </p>
             </div>
           )}
         </section>
-
       </main>
     </div>
   );
